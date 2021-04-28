@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="java.util.*" %>
+<%@page import="kr.smhrd.model.*" %>
+<%
+          List<MemberVO> list=(List<MemberVO>)request.getAttribute("list");
+%>    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,15 +48,19 @@
       </tr>
     </thead>
     <tbody>
+    <% for(int i=0;i<list.size();i++){
+    	    MemberVO vo=list.get(i);
+    	%>
       <tr>
-        <td>1</td>
-        <td>admin</td>
-        <td>admin</td>
-        <td>관리자</td>
-        <td>40</td>
-        <td>bit@naver.com</td>
-        <td>010-1111-1111</td>
+        <td><%=vo.getNum()%></td>
+        <td><%=vo.getId()%></td>
+        <td><%=vo.getPass()%></td>
+        <td><%=vo.getName()%></td>
+        <td><%=vo.getAge()%></td>
+        <td><%=vo.getEmail()%></td>
+        <td><%=vo.getPhone()%></td>
       </tr>
+    <% } %>
     </tbody>
   </table>
   </div>    
