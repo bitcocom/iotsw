@@ -13,6 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 public class MemberFrontController extends HttpServlet{
      public void service(HttpServletRequest request ,HttpServletResponse response) 
     		 throws ServerException, IOException{
-		     System.out.println("OK");
+		     
+    	    String reqUrl=request.getRequestURI();
+    	    String cpath=request.getContextPath();
+    	    String command=reqUrl.substring(cpath.length());
+    	    System.out.println(command);
+    	    
 	}
 }
