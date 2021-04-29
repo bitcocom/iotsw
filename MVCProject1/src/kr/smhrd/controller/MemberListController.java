@@ -17,19 +17,7 @@ public class MemberListController{
                throws ServletException, IOException{
     	  // Model과 연동(MemberDAO)
     	  MemberDAO dao=new MemberDAO();
-    	  //List<MemberVO> list=dao.memberList();
-    	  List<MemberVO> list=new ArrayList<MemberVO>();
-    	  MemberVO vo=new MemberVO();
-    	  vo.setNum(1);
-    	  vo.setId("admin");
-    	  vo.setPass("admin");
-    	  vo.setName("박매일");
-    	  vo.setAge(39);
-    	  vo.setPhone("010-1111-1111");
-    	  vo.setEmail("bit@emaps.com");    	  
-    	  list.add(vo);
-    	  list.add(vo);
-    	  list.add(vo);
+    	  List<MemberVO> list=dao.memberList();    	 
     	  // 객체바인딩
     	  request.setAttribute("list", list);  
     	  // 다음페이지의 경로를 리턴
