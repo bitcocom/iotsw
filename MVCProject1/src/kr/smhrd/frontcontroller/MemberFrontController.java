@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.smhrd.controller.MemberDeleteController;
+import kr.smhrd.controller.MemberInsertFormController;
 import kr.smhrd.controller.MemberListController;
 // Servlet API = (servlet-api.jar)
 // WAS -> Servlet(용어) ?
@@ -28,12 +30,20 @@ public class MemberFrontController extends HttpServlet{
     	    	///WEB-INF/member/memberList.jsp
     	    	String view=controller.requestHandler(request, response);
     	    	RequestDispatcher rd=request.getRequestDispatcher(view);
-    	    	rd.forward(request, response);	
+    	    	rd.forward(request, response);    	    	
     	    }else if(command.equals("/memberInsert.do")) {
     	        //POJO	
-    	    	
-    	    	
-    	    }
-    	    
+    	    	   	    	
+    	    }else if(command.equals("/memberDelete.do")) {
+    	        MemberDeleteController controller=new MemberDeleteController();
+    	        // /mp/memberList.do
+    	        String view=controller.requestHandler(request, response);
+    	    	response.sendRedirect(view);   	    	
+    	    }else if(command.equals("/memberInsertForm.do")) {
+    	        MemberInsertFormController controller=new MemberInsertFormController();
+    	        String view=controller.requestHandler(request, response);
+    	        RequestDispatcher rd=request.getRequestDispatcher(view);
+    	    	rd.forward(request, response);    	  	    	
+    	    }      	    
 	}
 }

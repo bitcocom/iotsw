@@ -30,4 +30,11 @@ public class MemberDAO {
 		session.close(); // 반납
 		return list;
 	}
+	public int memberDelete(int num) {
+		SqlSession session=sqlSessionFactory.openSession();
+		int cnt=session.delete("memberDelete", num);// 1, 0
+		session.commit(); //완료
+		session.close(); // 반납
+		return cnt;
+	}
 }

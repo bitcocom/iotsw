@@ -14,6 +14,15 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    function delFn(num){
+	    location.href="/mp/memberDelete.do?num="+num;	
+	}  
+    function goWriter(){
+    	location.href="/mp/memberInsertForm.do";	
+    }
+  </script>
+
 </head>
 <body>
  
@@ -45,6 +54,7 @@
         <th>나이</th>
         <th>이메일</th>
         <th>전화번호</th>
+        <th>삭제</th>
       </tr>
     </thead>
     <tbody>
@@ -59,9 +69,15 @@
         <td><%=vo.getAge()%></td>
         <td><%=vo.getEmail()%></td>
         <td><%=vo.getPhone()%></td>
+        <td><input type="button" value="삭제" onclick="delFn(<%=vo.getNum()%>)"  class="btn btn-warning"/></td>
       </tr>
     <% } %>
     </tbody>
+    <tr>
+      <td colspan="8">
+         <input type="button" value="회원가입" onclick="goWriter()" class="btn btn-default"/>
+      </td>
+    </tr>
   </table>
   </div>    
     </div>
