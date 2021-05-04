@@ -7,4 +7,17 @@
        select * from member order by num desc
     </select> 
     
+    <delete id="memberDelete" parameterType="Integer">
+       delete from member where num=#{num}       
+    </delete>
+    
+   <insert id="memberInsert" parameterType="memberVO">
+      insert into member(id,pass,name,age,email,phone)
+      values (#{id},#{pass},#{name},#{age},#{email},#{phone})
+   </insert>
+   
+   <select id="memberContent" parameterType="Integer" resultType="memberVO">
+       select * from member where num=#{num}       
+   </select>
+   
 </mapper>

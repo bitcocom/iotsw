@@ -37,4 +37,21 @@ public class MemberDAO {
 		session.close(); // 반납
 		return cnt;
 	}
+	public int memberInsert(MemberVO vo) {
+		SqlSession session=sqlSessionFactory.openSession();
+		int cnt=session.insert("memberInsert", vo);// 1, 0
+		session.commit(); //완료
+		session.close(); // 반납
+		return cnt;
+	}	
+	public MemberVO memberContent(int num) {
+		SqlSession session=sqlSessionFactory.openSession();
+		MemberVO vo=session.selectOne("memberContent", num);
+		session.close(); // 반납
+		return vo;		
+	}
 }
+
+
+
+

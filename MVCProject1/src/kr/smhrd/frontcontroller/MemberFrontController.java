@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.smhrd.controller.MemberContentController;
 import kr.smhrd.controller.MemberDeleteController;
+import kr.smhrd.controller.MemberInsertController;
 import kr.smhrd.controller.MemberInsertFormController;
 import kr.smhrd.controller.MemberListController;
 // Servlet API = (servlet-api.jar)
@@ -19,7 +21,9 @@ import kr.smhrd.controller.MemberListController;
 public class MemberFrontController extends HttpServlet{
      public void service(HttpServletRequest request ,HttpServletResponse response) 
     		 throws ServletException, IOException{
-		    // 1. 클라이언트의 요청을 파악하는 작업 
+		  
+    	    request.setCharacterEncoding("utf-8"); // euc-kr
+    	    // 1. 클라이언트의 요청을 파악하는 작업 
     	    String reqUrl=request.getRequestURI();    	    
     	    String cpath=request.getContextPath();
     	    String command=reqUrl.substring(cpath.length());
@@ -32,8 +36,10 @@ public class MemberFrontController extends HttpServlet{
     	    	RequestDispatcher rd=request.getRequestDispatcher(view);
     	    	rd.forward(request, response);    	    	
     	    }else if(command.equals("/memberInsert.do")) {
-    	        //POJO	
-    	    	   	    	
+    	    	MemberInsertController controller=new MemberInsertController();
+      	        // /mp/memberList.do
+      	        String view=controller.requestHandler(request, response);
+      	    	response.sendRedirect(view);      	    	   	    	
     	    }else if(command.equals("/memberDelete.do")) {
     	        MemberDeleteController controller=new MemberDeleteController();
     	        // /mp/memberList.do
@@ -44,6 +50,13 @@ public class MemberFrontController extends HttpServlet{
     	        String view=controller.requestHandler(request, response);
     	        RequestDispatcher rd=request.getRequestDispatcher(view);
     	    	rd.forward(request, response);    	  	    	
+    	    }else if(command.equals("/memberContent.do")) {
+    	        MemberContentController controller=new MemberContentController();
+    	        String view=controller.requestHandler(request, response);
+    	        // /WEB-INF/member/memberContent.jsp
+    	        RequestDispatcher rd=request.getRequestDispatcher(view);
+    	    	rd.forward(request, response);    
+    	        //response.sendRedirect(view);
     	    }      	    
 	}
 }

@@ -21,6 +21,9 @@
     function goWriter(){
     	location.href="/mp/memberInsertForm.do";	
     }
+    function goView(num){
+    	location.href="/mp/memberContent.do?num="+num;	
+    }
   </script>
 
 </head>
@@ -63,7 +66,7 @@
     	%>
       <tr>
         <td><%=vo.getNum()%></td>
-        <td><%=vo.getId()%></td>
+        <td><a href="javascript:goView(<%=vo.getNum()%>)"><%=vo.getId()%></a></td>
         <td><%=vo.getPass()%></td>
         <td><%=vo.getName()%></td>
         <td><%=vo.getAge()%></td>
