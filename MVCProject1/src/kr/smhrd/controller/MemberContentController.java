@@ -20,8 +20,8 @@ public class MemberContentController implements Controller{
 		
 		MemberVO vo=dao.memberContent(num);
 		request.setAttribute("vo", vo);
-		
-		return "/WEB-INF/member/memberContent.jsp";
+		// "/WEB-INF/member/memberContent.jsp" //View의 물리적인이름
+		return "memberContent";// View의 논리적인이름
 	}
 
 	

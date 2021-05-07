@@ -10,11 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.smhrd.controller.Controller;
 import kr.smhrd.controller.MemberContentController;
 import kr.smhrd.controller.MemberDeleteController;
 import kr.smhrd.controller.MemberInsertController;
 import kr.smhrd.controller.MemberInsertFormController;
 import kr.smhrd.controller.MemberListController;
+import kr.smhrd.controller.MemberUpdateController;
 // Servlet API = (servlet-api.jar)
 // WAS -> Servlet(용어) ?
 @WebServlet("*.do") // Servlet mapping
@@ -28,35 +30,22 @@ public class MemberFrontController extends HttpServlet{
     	    String cpath=request.getContextPath();
     	    String command=reqUrl.substring(cpath.length());
     	    System.out.println(command);
+    	    Controller controller=null;
+    	    String view=null;
     	    // 2. 각요청에 따른 분기작업
-    	    if(command.equals("/memberList.do")) {
-    	    	MemberListController controller=new MemberListController();
-    	    	///WEB-INF/member/memberList.jsp
-    	    	String view=controller.requestHandler(request, response);
-    	    	RequestDispatcher rd=request.getRequestDispatcher(view);
-    	    	rd.forward(request, response);    	    	
-    	    }else if(command.equals("/memberInsert.do")) {
-    	    	MemberInsertController controller=new MemberInsertController();
-      	        // /mp/memberList.do
-      	        String view=controller.requestHandler(request, response);
-      	    	response.sendRedirect(view);      	    	   	    	
-    	    }else if(command.equals("/memberDelete.do")) {
-    	        MemberDeleteController controller=new MemberDeleteController();
-    	        // /mp/memberList.do
-    	        String view=controller.requestHandler(request, response);
-    	    	response.sendRedirect(view);   	    	
-    	    }else if(command.equals("/memberInsertForm.do")) {
-    	        MemberInsertFormController controller=new MemberInsertFormController();
-    	        String view=controller.requestHandler(request, response);
-    	        RequestDispatcher rd=request.getRequestDispatcher(view);
-    	    	rd.forward(request, response);    	  	    	
-    	    }else if(command.equals("/memberContent.do")) {
-    	        MemberContentController controller=new MemberContentController();
-    	        String view=controller.requestHandler(request, response);
-    	        // /WEB-INF/member/memberContent.jsp
-    	        RequestDispatcher rd=request.getRequestDispatcher(view);
-    	    	rd.forward(request, response);    
-    	        //response.sendRedirect(view);
-    	    }      	    
+    	    // HandlerMapping
+    	    HandlerMapping mappings=new HandlerMapping();
+    	    controller=mappings.getController(command);
+    	    // view=memberList -> forward
+    	    // view=redirect:/mp/memberList.do ->redirect
+    	    view=controller.requestHandler(request, response);
+    	    if(view!=null) {
+    	    	if(view.indexOf("redirect:")!=-1) {
+    	    		response.sendRedirect(view.split(":")[1]);
+    	    	}else {
+    	    		RequestDispatcher rd=request.getRequestDispatcher(ViewResolver.makeView(view));
+    	    		rd.forward(request, response);
+    	    	}
+    	    }
 	}
 }

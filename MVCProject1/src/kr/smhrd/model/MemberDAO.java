@@ -10,7 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 // 기존 JDBC문제점?=>MyBatis
-public class MemberDAO {	
+public class MemberDAO { // MemberMapper(interface)	
 	private static SqlSessionFactory sqlSessionFactory;	
 	// 초기화 블럭
 	static {
@@ -49,6 +49,13 @@ public class MemberDAO {
 		MemberVO vo=session.selectOne("memberContent", num);
 		session.close(); // 반납
 		return vo;		
+	}
+	public int memberUpdate(MemberVO vo) {
+		SqlSession session=sqlSessionFactory.openSession();
+		int cnt=session.update("memberUpdate", vo);
+		session.commit();
+		session.close();
+		return cnt;
 	}
 }
 
